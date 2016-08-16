@@ -18,5 +18,16 @@ client.read(
         throw err;
     }
 
-    console.log(JSON.stringify(triples, null, 2));
+    if (!triples) {
+        throw new Error('No triples.');
+    }
+
+    client.delete(triples, function (err, res) {
+
+        if (err) {
+            throw err;
+        }
+
+        console.log(res);
+    });
 });

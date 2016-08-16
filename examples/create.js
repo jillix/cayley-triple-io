@@ -16,8 +16,18 @@ var triples = [
     },
     {
         subject: 'builder:someInstance',
-        predicate: 'flow:server',
-        object: true
+        predicate: 'flow:config',
+        object: '_:bn1'
+    },
+    {
+        subject: '_:bn1',
+        predicate: 'schema:name',
+        object: 'someName'
+    },
+    {
+        subject: '_:bn1',
+        predicate: 'schema:age',
+        object: 123
     }
 ];
 
