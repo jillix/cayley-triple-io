@@ -8,15 +8,15 @@ var client = new tripleCrud.Client({
     }
 });
 
-client.read(
+var stream = client.read(
     [
-        'someInstance',
-        ['In', 'schema:name']
-    ], function (err, triples) {
+        'builder:someInstance',
+    ]);
 
-    if (err) {
-        throw err;
-    }
+stream.on('error', function (err) {
+    console.log(err);
+});
 
-    console.log(JSON.stringify(triples, null, 2));
+stream.on('data', function (chunk) {
+    console.log(chunk);
 });
