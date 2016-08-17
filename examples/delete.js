@@ -24,7 +24,7 @@ stream.on('end', function () {
     deleteStream.on('error', function (err) {
         console.log(err);
     });
-    deleteStream.on('finish', function () {
+    deleteStream.on('deleted', function () {
         console.log('delete finished');
     });
 

@@ -37,7 +37,7 @@ stream.on('error', function (err) {
     console.log(err);
 });
 
-stream.on('finish', function () {
+stream.on('created', function () {
     console.log('create finished');
 });
 
