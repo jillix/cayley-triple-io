@@ -9,28 +9,39 @@ var client = new tripleCrud.Client({
 });
 
 var triples = [
-    {
-        subject: 'builder:someInstance',
-        predicate: 'schema:name',
-        object: 'someInstance'
-    },
-    {
-        subject: 'builder:someInstance',
-        predicate: 'flow:config',
-        object: '_:bn1'
-    },
-    {
-        subject: '_:bn1',
-        predicate: 'schema:name',
-        object: 'someName'
-    },
-    {
-        subject: '_:bn1',
-        predicate: 'schema:age',
-        object: 123
-    }
+    [
+        'builder:someInstance',
+        'schema:name',
+        'someInstance'
+    ],
+    [
+        'builder:someInstance',
+        'flow:config',
+        '_:bn1'
+    ],
+    [
+        '_:bn1',
+        'schema:name',
+        'someName'
+    ],
+    [
+        '_:bn1',
+        'schema:age',
+        123
+    ]
 ];
 
-client.create(triples, function (err, res) {
-    console.log(err, res);
+var stream = client.create();
+
+stream.on('error', function (err) {
+    console.log(err);
 });
+
+stream.on('finish', function () {
+    console.log('create finished');
+});
+
+for (var i = 0; i < triples.length - 1; ++i) {
+    stream.write(triples[i]);
+}
+stream.end(triples[triples.length - 1]);

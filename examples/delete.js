@@ -8,26 +8,28 @@ var client = new tripleCrud.Client({
     }
 });
 
-client.read(
-    [
-        'someInstance',
-        ['In', 'schema:name']
-    ], function (err, triples) {
+var stream = client.read([ 'builder:someInstance' ]);
+var deleteStream = client.delete();
 
-    if (err) {
-        throw err;
-    }
+stream.on('error', function (err) {
+    console.log(err);
+});
 
-    if (!triples) {
-        throw new Error('No triples.');
-    }
+var data = [];
+stream.on('data', function (chunk) {
+    data.push(chunk);
+});
 
-    client.delete(triples, function (err, res) {
-
-        if (err) {
-            throw err;
-        }
-
-        console.log(res);
+stream.on('end', function () {
+    deleteStream.on('error', function (err) {
+        console.log(err);
     });
+    deleteStream.on('finish', function () {
+        console.log('delete finished');
+    });
+
+    for (var i = 0; i < data.length - 1; ++i) {
+        deleteStream.write(data[i]);
+    }
+    deleteStream.end(data[data.length - 1]);
 });
