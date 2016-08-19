@@ -8,7 +8,7 @@ var client = new tripleCrud.Client({
     }
 });
 
-var stream = client.read(
+var stream = client.createReadStream(
     [
         'builder:someInstance',
     ]);

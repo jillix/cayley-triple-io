@@ -8,28 +8,14 @@ var client = new tripleCrud.Client({
     }
 });
 
-var stream = client.read([ 'builder:someInstance' ]);
-var deleteStream = client.delete();
+var readStream = client.createReadStream([ 'builder:someInstance' ]);
+var deleteStream = client.createDeleteStream();
 
-stream.on('error', function (err) {
+readStream.on('error', function (err) {
+    console.log(err);
+});
+deleteStream.on('error', function (err) {
     console.log(err);
 });
 
-var data = [];
-stream.on('data', function (chunk) {
-    data.push(chunk);
-});
-
-stream.on('end', function () {
-    deleteStream.on('error', function (err) {
-        console.log(err);
-    });
-    deleteStream.on('deleted', function () {
-        console.log('delete finished');
-    });
-
-    for (var i = 0; i < data.length - 1; ++i) {
-        deleteStream.write(data[i]);
-    }
-    deleteStream.end(data[data.length - 1]);
-});
+readStream.pipe(deleteStream);

@@ -31,14 +31,10 @@ var triples = [
     ]
 ];
 
-var stream = client.create();
+var stream = client.createInsertStream();
 
 stream.on('error', function (err) {
     console.log(err);
-});
-
-stream.on('created', function () {
-    console.log('create finished');
 });
 
 for (var i = 0; i < triples.length - 1; ++i) {
