@@ -1,1 +1,190 @@
-# cayley-triple-crud
+# cayley-triple-io
+
+# Global
+
+* * *
+
+## Class: client
+Creates a new Client instance
+
+**options**: `Object` , Constructor options.
+
+**options.url**: `String` , Cayley host url.
+
+**options.prefixes**: `Object` , An object with RDF prefixes.
+
+### example
+
+``` javascript
+var tripleCrud = require('cayley-triple-io');
+var client = new tripleCrud.Client({
+    url: 'http://localhost:64210/',
+    prefixes: {
+        builder: 'http://service.jillix.com/jillix/service/app/builder/',
+        schema: 'http://schema.org/',
+        flow: 'http://schema.jillix.net/vocab/'
+    }
+});
+```
+
+### client.createInsertStream(options, options.bufferSize) 
+
+Inserts triples into cayley
+
+**Parameters**
+
+**options**: `Object`, Object containing stream options.
+
+**options.bufferSize**: `Number`, The number of triples that will be colected in the internal buffer before writing to cayley. Default is 10.
+
+**Returns**: writable stream
+
+**Note**: If an error occurres during writing the stream will not end, the triples that do not cause an error will be inserted.
+
+#### Example
+``` javascript
+var triples = [
+    [
+        'builder:someInstance',
+        'schema:name',
+        'someInstance'
+    ],
+    [
+        'builder:someInstance',
+        'flow:config',
+        '_:bn1'
+    ],
+    [
+        '_:bn1',
+        'schema:name',
+        'someName'
+    ],
+    [
+        '_:bn1',
+        'schema:age',
+        123
+    ]
+];
+
+var stream = client.createInsertStream();
+
+stream.on('error', function (err) {
+    console.log(err);
+});
+
+for (var i = 0; i < triples.length - 1; ++i) {
+    stream.write(triples[i]);
+}
+stream.end(triples[triples.length - 1]);
+```
+
+### client.createReadStream(query, options, options.deep, options.out) 
+
+reads triples from cayley
+
+**Parameters**
+
+**query**: `Object`, The cayley query that will be used to find the start node.
+
+**options**: `Object`, Object containing stream options.
+
+**options.deep**: `Boolean`, If false only the first level endges will be traversed. Default true.
+
+**options.out**: `Object`, A deep object containing the outgoing edges that will be traversed. If null all outgoing endges will be traversed.
+
+**Returns**: readable stream
+
+#### Example
+
+``` javascript
+var stream = client.createReadStream(
+    [
+        'builder:someInstance',
+    ]);
+
+stream.on('error', function (err) {
+    console.log(err);
+});
+
+stream.on('data', function (chunk) {
+    console.log(chunk);
+});
+```
+
+**Query example**
+``` javascript
+    [
+        SOME_VALUE,
+        ['In', 'SOME_PREDICATE'],
+        ['Out', 'SOME_PREDICATE'],
+        ['Is', 'SOME_VALUE'],
+        ['Has', ['SOME_PREDICATE', 'SOME_VALUE']]
+    ]
+```
+
+**options example**
+``` javascript
+    {
+        deep: true,
+        out: {
+            'predicate': 1,
+            'prefix:predicate': {
+                'prefix:predicate': {
+                    ...
+                }
+            }
+        }
+    }
+```
+
+### client.createDeleteStream(options, options.bufferSize) 
+
+deletes triples from cayley
+
+**Parameters**
+
+**options**: `Object`, Object containing stream options.
+
+**options.bufferSize**: `Number`, The number of triples that will be colected in the internal buffer before deleting from cayley. Default is 10.
+
+**Returns**: writable stream
+
+**Note**: If an error occurres during writing the stream will not end, the triples that do not cause an error will be inserted.
+
+#### Example
+``` javascript
+    var triples = [
+    [
+        'builder:someInstance',
+        'schema:name',
+        'someInstance'
+    ],
+    [
+        'builder:someInstance',
+        'flow:config',
+        '_:bn1'
+    ],
+    [
+        '_:bn1',
+        'schema:name',
+        'someName'
+    ],
+    [
+        '_:bn1',
+        'schema:age',
+        123
+    ]
+];
+
+var stream = client.createDeleteStream();
+
+stream.on('error', function (err) {
+    console.log(err);
+});
+
+for (var i = 0; i < triples.length - 1; ++i) {
+    stream.write(triples[i]);
+}
+stream.end(triples[triples.length - 1]);
+```
+* * *
