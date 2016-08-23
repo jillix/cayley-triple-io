@@ -18,4 +18,8 @@ deleteStream.on('error', function (err) {
     console.log(err);
 });
 
+deleteStream.on('success', function () {
+    console.log('Triples deleted.');
+});
+
 readStream.pipe(deleteStream);
