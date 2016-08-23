@@ -1,6 +1,6 @@
 # cayley-triple-io
 
-# Global
+# Docs
 
 * * *
 
@@ -39,30 +39,34 @@ Inserts triples into cayley
 
 **Returns**: writable stream
 
-**Note**: If an error occurres during writing the stream will not end, the triples that do not cause an error will be inserted.
+**Events**
+
+`error` - Will be called if an error is encountered while inserting the triple. **Note** the stream will not end if an error happens, all the triples written before and after the error will be inserted into cayley.
+
+`success` - Will be called after all triples have been inserted.
 
 #### Example
 ``` javascript
 var triples = [
     [
-        'builder:someInstance',
-        'schema:name',
-        'someInstance'
+        'http://service.jillix.com/jillix/service/app/builder/someInstance',
+        'http://schema.org/name',
+        '"someInstance"'
     ],
     [
-        'builder:someInstance',
-        'flow:config',
+        'http://service.jillix.com/jillix/service/app/builder/someInstance',
+        'http://schema.jillix.net/vocab/config',
         '_:bn1'
     ],
     [
         '_:bn1',
-        'schema:name',
-        'someName'
+        'http://schema.org/name',
+        '"someInstance"'
     ],
     [
         '_:bn1',
-        'schema:age',
-        123
+        'http://schema.org/age',
+        '"22"^^http://www.w3.org/2001/XMLSchema#integer'
     ]
 ];
 
@@ -70,6 +74,10 @@ var stream = client.createInsertStream();
 
 stream.on('error', function (err) {
     console.log(err);
+});
+
+stream.on('success', function () {
+    console.log('Triples inserted.');
 });
 
 for (var i = 0; i < triples.length - 1; ++i) {
@@ -112,6 +120,7 @@ stream.on('data', function (chunk) {
 ```
 
 **Query example**
+
 ``` javascript
     [
         SOME_VALUE,
@@ -136,6 +145,13 @@ stream.on('data', function (chunk) {
         }
     }
 ```
+***stream data example**
+``` javascript
+[ 'http://service.jillix.com/jillix/service/app/builder/someInstance', 'http://schema.org/name', '"someInstance"' ]
+[ 'http://service.jillix.com/jillix/service/app/builder/someInstance', 'http://schema.jillix.net/vocab/config', '_:bn1' ]
+[ '_:bn1', 'http://schema.org/name', '"someInstance"' ]
+[ '_:bn1', 'http://schema.org/age', '"22"^^http://www.w3.org/2001/XMLSchema#integer' ]
+```
 
 ### client.createDeleteStream(options, options.bufferSize) 
 
@@ -149,30 +165,34 @@ deletes triples from cayley
 
 **Returns**: writable stream
 
-**Note**: If an error occurres during writing the stream will not end, the triples that do not cause an error will be inserted.
+**Events**
+
+`error` - Will be called if an error is encountered while deleting the triple. **Note** the stream will not end if an error happens, all the triples written before and after the error will be deleted from cayley.
+
+`success` - Will be called after all triples have been deleted.
 
 #### Example
 ``` javascript
-    var triples = [
+var triples = [
     [
-        'builder:someInstance',
-        'schema:name',
-        'someInstance'
+        'http://service.jillix.com/jillix/service/app/builder/someInstance',
+        'http://schema.org/name',
+        '"someInstance"'
     ],
     [
-        'builder:someInstance',
-        'flow:config',
+        'http://service.jillix.com/jillix/service/app/builder/someInstance',
+        'http://schema.jillix.net/vocab/config',
         '_:bn1'
     ],
     [
         '_:bn1',
-        'schema:name',
-        'someName'
+        'http://schema.org/name',
+        '"someInstance"'
     ],
     [
         '_:bn1',
-        'schema:age',
-        123
+        'http://schema.org/age',
+        '"22"^^http://www.w3.org/2001/XMLSchema#integer'
     ]
 ];
 
@@ -180,6 +200,10 @@ var stream = client.createDeleteStream();
 
 stream.on('error', function (err) {
     console.log(err);
+});
+
+stream.on('success', function () {
+    console.log('Triples deleted.');
 });
 
 for (var i = 0; i < triples.length - 1; ++i) {
