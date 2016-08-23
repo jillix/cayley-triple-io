@@ -10,7 +10,9 @@ var client = new tripleCrud.Client({
 
 var stream = client.createReadStream(
     [
-        'builder:someInstance',
+        'someInstance',
+        ['In', 'schema:name'],
+        ['Is', 'builder:someInstance']
     ]);
 
 stream.on('error', function (err) {
