@@ -1,10 +1,18 @@
 # cayley-triple-io
 
-# Docs
+Insert, Read and Delete triples from Cayley
 
-* * *
+***
 
-## Class: client
+## Change Log
+
+#### 0.1.0
+ - First version.
+
+
+## Docs
+
+### Class: client
 Creates a new Client instance
 
 **options**: `Object` , Constructor options.
@@ -13,7 +21,7 @@ Creates a new Client instance
 
 **options.prefixes**: `Object` , An object with RDF prefixes.
 
-### example
+#### example
 
 ``` javascript
 var tripleCrud = require('cayley-triple-io');
@@ -45,7 +53,7 @@ Inserts triples into cayley
 
 `success` - Will be called after all triples have been inserted.
 
-#### Example
+#### example
 ``` javascript
 var triples = [
     [
@@ -102,7 +110,7 @@ reads triples from cayley
 
 **Returns**: readable stream
 
-#### Example
+#### example
 
 ``` javascript
 var stream = client.createReadStream(
@@ -171,7 +179,7 @@ deletes triples from cayley
 
 `success` - Will be called after all triples have been deleted.
 
-#### Example
+#### example
 ``` javascript
 var triples = [
     [
