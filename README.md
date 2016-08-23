@@ -2,8 +2,6 @@
 
 Insert, Read and Delete triples from Cayley
 
-***
-
 ## Change Log
 
 #### 0.1.0
