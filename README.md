@@ -104,7 +104,7 @@ reads triples from cayley
 
 **options.deep**: `Boolean`, If false only the first level endges will be traversed. Default true.
 
-**options.out**: `Object`, A deep object containing the outgoing edges that will be traversed. If null all outgoing endges will be traversed.
+**options.out**: `Array`, An array containing the predicates that will be traversed
 
 **Returns**: readable stream
 
@@ -141,14 +141,11 @@ stream.on('data', function (chunk) {
 ``` javascript
     {
         deep: true,
-        out: {
-            'predicate': 1,
-            'prefix:predicate': {
-                'prefix:predicate': {
-                    ...
-                }
-            }
-        }
+        out: [
+            'predicate_IRI',
+            'prefix:predicate',
+            ...
+        ]
     }
 ```
 ***stream data example**
