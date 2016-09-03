@@ -5,7 +5,7 @@ CAYLEY_PORT=64210
 
 CAYLEY_ROOT=bin/cayley
 DB_TYPE=mem
-CAYLEY_DEFAULT_DB=bin/testData.nq
+CAYLEY_DEFAULT_DB=test/testData.nq
 
 # check if a cayley instance is already running and kill it 
 CAYLEY_PROCESS_PID=`lsof -iTCP:$CAYLEY_PORT -sTCP:LISTEN -t`
