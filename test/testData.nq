@@ -47,10 +47,6 @@
 <http://domain.com/_i/api_static> <http://schema.jillix.net/vocab/roles> "\"*\"" .
 <http://domain.com/_i/api_static> <http://schema.org/name> "\"api_static\"" .
 <http://domain.com/_i/api_static> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.jillix.net/vocab/ModuleInstanceConfig> .
-<http://domain.com/_i/client> <http://schema.jillix.net/vocab/module> <https://raw.githubusercontent.com/jillix/flow-app/master/module.json> .
-<http://domain.com/_i/client> <http://schema.jillix.net/vocab/roles> "\"*\"" .
-<http://domain.com/_i/client> <http://schema.org/name> "\"client\"" .
-<http://domain.com/_i/client> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.jillix.net/vocab/ModuleInstanceConfig> .
 <http://domain.com/_i/flow_tools> <http://schema.jillix.net/vocab/module> <https://raw.githubusercontent.com/jillix/flow-tools/master/module.json> .
 <http://domain.com/_i/flow_tools> <http://schema.jillix.net/vocab/roles> "\"*\"" .
 <http://domain.com/_i/flow_tools> <http://schema.org/name> "\"flow_tools\"" .
@@ -138,12 +134,6 @@ _:b8 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.jillix.net
 <https://raw.githubusercontent.com/jillix/flow-static/master/module.json> <http://schema.org/name> "\"flow-static\"" .
 <https://raw.githubusercontent.com/jillix/flow-static/master/module.json> <http://schema.org/softwareVersion> "\"0.0.1\"" .
 <https://raw.githubusercontent.com/jillix/flow-static/master/module.json> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.org/SoftwareSourceCode> .
-<https://raw.githubusercontent.com/jillix/flow-app/master/module.json> <http://schema.org/author> "\"jillix\"" .
-<https://raw.githubusercontent.com/jillix/flow-app/master/module.json> <http://schema.org/codeRepository> <git+https://github.com/jillix/flow-app.git> .
-<https://raw.githubusercontent.com/jillix/flow-app/master/module.json> <http://schema.org/description> "\"Flow cli wrapper\"" .
-<https://raw.githubusercontent.com/jillix/flow-app/master/module.json> <http://schema.org/name> "\"flow-app\"" .
-<https://raw.githubusercontent.com/jillix/flow-app/master/module.json> <http://schema.org/softwareVersion> "\"0.0.1\"" .
-<https://raw.githubusercontent.com/jillix/flow-app/master/module.json> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.org/SoftwareSourceCode> .
 <https://raw.githubusercontent.com/jillix/flow-tools/master/module.json#deep> <http://schema.org/name> "\"deep\"" .
 <https://raw.githubusercontent.com/jillix/flow-tools/master/module.json#deep> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://schema.jillix.net/vocab/DataHandler> .
 <https://raw.githubusercontent.com/jillix/flow-tools/master/module.json#flat> <http://schema.org/name> "\"flat\"" .
