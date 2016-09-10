@@ -13,11 +13,11 @@ function download_cayley {
 
     if [ "$MACHINE" = "Darwin" ]
     then
-        CAYLEY_VERSION=cayley_0.4.1_darwin_amd64
+        CAYLEY_VERSION=cayley_v0.5.0_darwin_amd64
         CAYLEY_ARCHIVE=$CAYLEY_VERSION.zip
     elif [ "$MACHINE" = "Linux" ]
     then
-        CAYLEY_VERSION=cayley_0.4.1_linux_amd64
+        CAYLEY_VERSION=cayley_v0.5.0_linux_amd64
         CAYLEY_ARCHIVE=$CAYLEY_VERSION.tar.gz
     else
         echo "No relese archive found"
